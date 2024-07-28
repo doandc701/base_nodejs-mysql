@@ -50,9 +50,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% listUsers.forEach(function(user) { %>
+                        <% listUsers.forEach(function(user,index) { %>
                         <tr>
-                            <td><%= user.id %></td>
+                            <td><%= index + 1 %></td>
                             <td><%= user.email %></td>
                             <td><%= user.name %></td>
                             <td><%= user.city %></td>
@@ -60,13 +60,44 @@
                                 <a href="/update/<%= user.id %>" class="btn btn-info" role="button">Edit</a>
                             </td>
                             <td>
-                                <button class="btn btn-danger" type="button">Delete</button>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteUser" onclick="handleOpenConfirmDelete('<%= user.id %>')">Delete</button>
                             </td>
                         </tr>
                         <% }); %>
                     </tbody>
                 </table>
             </div>
+
+            <form name="delete-user-form" method="POST" />
+
+            <!-- Modal -->
+            <div class="modal fade" id="deleteUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticDeleteUserBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticDeleteUserBackdropLabel">Confirm Delete</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">Are you sure delete this user?</div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" onclick="handleDelete()">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>
+<script>
+    let idUserDelete = null;
+    const handleOpenConfirmDelete = (id) => {
+        idUserDelete = id;
+    };
+
+    const handleDelete = () => {
+        const deleteUserForm = document.forms['delete-user-form'];
+        deleteUserForm.action = `/delete-user/${idUserDelete}?_method=DELETE`;
+        deleteUserForm.submit();
+    };
+</script>

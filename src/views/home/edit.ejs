@@ -40,7 +40,7 @@
             </nav>
 
             <div class="p-3 m-0 border-0 bd-example m-0 border-0">
-                <form class="g-3 needs-validation" novalidate action="/update-user" method="POST">
+                <form class="g-3 needs-validation" novalidate action="/update-user/<%= userEdit?.id ?? '' %>?_method=PUT" method="POST">
                     <div class="col-md-12">
                         <label for="validationCustomEmail" class="form-label">Email</label>
                         <div class="input-group has-validation">

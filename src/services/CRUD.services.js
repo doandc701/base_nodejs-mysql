@@ -10,4 +10,14 @@ const getUsersByIdServices = async (sqlQuery, values) => {
     return rows;
 };
 
-export { getAllUsersServices, getUsersByIdServices }; // Export the getAllUsers function to be used in src/services/CRUD.services.js
+const updateUsersByIdServices = async (sqlQuery, values) => {
+    const [rows, fields] = await connection.execute(sqlQuery, values);
+    return rows;
+};
+
+const deleteUsersByIdServices = async (sqlQuery, values) => {
+    const [rows, fields] = await connection.execute(sqlQuery, values);
+    return rows;
+};
+
+export { getAllUsersServices, getUsersByIdServices, updateUsersByIdServices, deleteUsersByIdServices }; // Export the getAllUsers function to be used in src/services/CRUD.services.js
